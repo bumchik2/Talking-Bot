@@ -15,16 +15,16 @@ import smart_reply
 
 class BotManager:
     help_message = """
-    Hello there, my name is Tommy! 
-    I can talk to you when you feel alone or just send you some useful info.
-    I can tell you about famous people, countries, musical groups and many other things.
-    Write me anything to start the conversation!
-    
-    Use the following commands to manage chat settings:
+Hello there, my name is Tommy! 
+I can talk to you when you feel alone or just send you some useful info.
+I can tell you about famous people, countries, musical groups and many other things.
+Write me anything to start the conversation!
 
-    /reply_language you can choose between English / Russian bot messages
-    /reply_type you can choose between audio / text bot messages
-    """
+Use the following commands to manage chat settings:
+
+/reply_language you can choose between English / Russian bot messages
+/reply_type you can choose between audio / text bot messages
+"""
 
     bot = telebot.TeleBot(config.TOKEN)
     bot_voice_enabled = False
@@ -97,8 +97,10 @@ class BotManager:
     def get_command_reply(message):
         BotManager.waiting_for_command_reply = False
         if message.text == 'Russian':
+            BotManager.bot.send_message(message.chat.id, 'OK let\'s speak Russian!')
             BotManager.bot_language = 'ru-RU'
         elif message.text == 'English':
+            BotManager.bot.send_message(message.chat.id, 'OK let\'s speak English!')
             BotManager.bot_language = 'en-US'
         elif message.text == 'Audio':
             BotManager.bot_voice_enabled = True
@@ -107,7 +109,7 @@ class BotManager:
         else:
             BotManager.bot.send_message(message.chat.id, 'I am sorry, something went wrong...')
             return
-        BotManager.bot.send_message(message.chat.id, 'New setting have been set successfully!')
+        BotManager.bot.send_message(message.chat.id, 'New settings have been set successfully!')
 
     @staticmethod
     @bot.message_handler(content_types=['text'])
