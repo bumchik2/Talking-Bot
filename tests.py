@@ -28,6 +28,7 @@ def test_all():
     srt = SpeechRecognitionTester()
     srt.recognize_speech_english_test()
     srt.recognize_speech_russian_test()
+    print('All tests passed successfully!')
 
 
 if __name__ == '__main__':

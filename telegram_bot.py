@@ -5,6 +5,7 @@ from gtts import gTTS
 import os
 import telegram
 import json
+import tests
 
 from speech_recognizing import recognize_speech
 from translator import translate
@@ -41,8 +42,9 @@ Use the following commands to manage chat settings:
             raise Exception("Something went wrong...")
 
     @staticmethod
-    def get_audio_from_text(text, filename_mp3, language='en'):
-        output = gTTS(text=text, lang=language, slow=False)
+    def get_audio_from_text(text, filename_mp3):
+        lang = 'ru' if BotManager.bot_language == 'ru-RU' else BotManager.bot_language
+        output = gTTS(text=text, lang=lang, slow=False)
         output.save(filename_mp3)
 
     @staticmethod
@@ -144,4 +146,6 @@ Use the following commands to manage chat settings:
 
 
 if __name__ == '__main__':
+    tests.test_all()
+
     BotManager.bot.polling(none_stop=True)
