@@ -171,6 +171,8 @@ if __name__ == '__main__':
     tests.test_all()
 
     if "HEROKU" in list(os.environ.keys()):
+        print('OK, I am actually here', file=sys.stderr)
+        
         logger = telebot.logger
         telebot.logger.setLevel(logging.INFO)
 
