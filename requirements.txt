@@ -9,3 +9,4 @@ nltk
 MeaningCloud-python
 wikipedia
 pyTelegramBotAPI
+flask

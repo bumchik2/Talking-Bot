@@ -6,6 +6,8 @@ import os
 import json
 import tests
 import sys
+from flask import Flask, request
+
 
 from speech_recognizing import recognize_speech
 from translator import translate
@@ -18,6 +20,7 @@ def debug_function(func):
     def wrapper(*args, **kwargs):
         print(func.__name__, ' is called!', file=sys.stderr)
         return func(*args, **kwargs)
+
     return wrapper
 
 
@@ -166,10 +169,29 @@ Use the following commands to manage chat settings:
 if __name__ == '__main__':
     tests.test_all()
 
-    while True:
-        try:
-            BotManager.bot.polling(none_stop=True)
-        except:
-            # that is not good, but I don't see any other way
-            # of deploying the project on Heroku
-            pass
+    if "HEROKU" in list(os.environ.keys()):
+        # logger = telebot.logger
+        # telebot.logger.setLevel(logging.INFO)
+
+        server = Flask(__name__)
+
+
+        @server.route("/bot", methods=['POST'])
+        def getMessage():
+            BotManager.bot.process_new_updates([telebot.types.Update.de_json(request.stream.read().decode("utf-8"))])
+            return "!", 200
+
+
+        @server.route("/")
+        def webhook():
+            BotManager.bot.remove_webhook()
+            BotManager.bot.set_webhook(
+                url="https://min-gallows.herokuapp.com/bot")  # этот url нужно заменить на url вашего Хероку приложения
+            return "?", 200
+
+
+        server.run(host="0.0.0.0", port=os.environ.get('PORT', 80))
+    else:
+        # если переменной окружения HEROKU нету, значит это запуск с машины разработчика.
+        # Удаляем вебхук на всякий случай, и запускаем с обычным поллингом.
+        BotManager.bot.polling(none_stop=True)
