@@ -83,14 +83,12 @@ Use the following commands to manage chat settings:
             BotManager.bot.send_message(chat_id=message.chat.id, text='Choose your language!',
                                         reply_markup=json.dumps({'keyboard': [['Russian'], ['English']],
                                                                  'one_time_keyboard': True}))
-            telegram.ReplyKeyboardRemove(remove_keyboard=True)
 
         elif message.text == '/reply_type':
             BotManager.waiting_for_command_reply = True
             BotManager.bot.send_message(chat_id=message.chat.id, text='Choose the type of messages you want to get!',
                                         reply_markup=json.dumps({'keyboard': [['Audio'], ['Text']],
                                                                  'one_time_keyboard': True}))
-            telegram.ReplyKeyboardRemove(remove_keyboard=True)
 
         else:
             BotManager.bot.send_message(chat_id=message.chat.id, text="Unknown command")
