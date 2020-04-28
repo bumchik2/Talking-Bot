@@ -9,14 +9,14 @@ server = Flask(__name__)
 
 
 @server.route('/' + config.TOKEN, methods=['POST'])
-def get_message():
+def getMessage():
     print('getting message')
     BotManager.bot.process_new_updates([telebot.types.Update.de_json(request.stream.read().decode('utf-8'))])
     return '!', 200
 
 
 @server.route('/')
-def web_hook():
+def webhook():
     print('web hook is called')
     BotManager.bot.remove_webhook()
     url = 'https://peaceful-shelf-93340.herokuapp.com/' + config.TOKEN
