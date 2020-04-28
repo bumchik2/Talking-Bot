@@ -1,4 +1,5 @@
 import speech_recognition as sr
+import sys
 
 
 def recognize_speech(file_path, language):
@@ -11,4 +12,5 @@ def recognize_speech(file_path, language):
         result = r.recognize_google(audio, language=language)
         return result
     except (sr.UnknownValueError, sr.RequestError):
+        print('failed to recognize speech', file=sys.stderr)
         return ''

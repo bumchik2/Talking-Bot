@@ -62,7 +62,7 @@ def get_wiki_answer(topic):
         wiki_summary = wikipedia.summary(topic, 3)
         return wiki_summary
     except:
-        pass
+        print('failed to find summary for', topic, file=sys.stderr)
 
     try:
         wiki_keyword = wikipedia.search(topic)
@@ -71,7 +71,7 @@ def get_wiki_answer(topic):
         else:
             return wikipedia.summary(wiki_keyword, 3)
     except:
-        pass
+        print('failed to find summary for', wiki_keyword, file=sys.stderr)
 
     return None
 

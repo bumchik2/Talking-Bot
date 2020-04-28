@@ -103,21 +103,16 @@ Use the following commands to manage chat settings:
 
     @staticmethod
     def get_command_reply(message):
-        print('OK I am here!')
         BotManager.waiting_for_command_reply = False
         if message.text == 'Russian':
-            print('OK you are choosing Russian!')
             BotManager.bot.send_message(message.chat.id, 'OK let\'s speak Russian!')
             BotManager.bot_language = 'ru-RU'
         elif message.text == 'English':
-            print('OK you are choosing English!')
             BotManager.bot.send_message(message.chat.id, 'OK let\'s speak English!')
             BotManager.bot_language = 'en-US'
         elif message.text == 'Audio':
-            print('OK you are choosing Audio!')
             BotManager.bot_voice_enabled = True
         elif message.text == 'Text':
-            print('OK you are choosing Text!')
             BotManager.bot_voice_enabled = False
         else:
             BotManager.bot.send_message(message.chat.id, 'I am sorry, something went wrong...')
