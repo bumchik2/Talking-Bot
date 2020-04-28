@@ -4,10 +4,7 @@ import subprocess
 from gtts import gTTS
 import os
 import json
-import tests
 import sys
-from flask import Flask, request
-import logging
 
 
 from speech_recognizing import recognize_speech
@@ -165,34 +162,3 @@ Use the following commands to manage chat settings:
 
         os.remove(filename_oga)
         os.remove(filename_wav)
-
-
-if __name__ == '__main__':
-    tests.test_all()
-
-    if "HEROKU" in list(os.environ.keys()):
-        print('OK, I am actually here', file=sys.stderr)
-
-        logger = telebot.logger
-        telebot.logger.setLevel(logging.INFO)
-
-        server = Flask(__name__)
-
-        @server.route("/" + config.TOKEN, methods=['POST'])
-        def getMessage():
-            BotManager.bot.process_new_updates([telebot.types.Update.de_json(request.stream.read().decode("utf-8"))])
-            return "!", 200
-
-        @server.route("/")
-        def webhook():
-            BotManager.bot.remove_webhook()
-            BotManager.bot.set_webhook(
-                url="https://pacific-scrubland-93685.herokuapp.com/" + config.TOKEN)
-            # этот url нужно заменить на url вашего Хероку приложения
-            return "?", 200
-
-        server.run(host="0.0.0.0", port=os.environ.get('PORT', 80))
-    else:
-        # если переменной окружения HEROKU нет, значит это запуск с машины разработчика.
-        # => запускаем с обычным поллингом.
-        BotManager.bot.polling(none_stop=True)
