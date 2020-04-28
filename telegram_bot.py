@@ -166,4 +166,10 @@ Use the following commands to manage chat settings:
 if __name__ == '__main__':
     tests.test_all()
 
-    BotManager.bot.polling(none_stop=True)
+    while True:
+        try:
+            BotManager.bot.polling(none_stop=True)
+        except:
+            # that is not good, but I don't see any other way
+            # of deploying the project on Heroku
+            pass
