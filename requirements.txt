@@ -8,3 +8,4 @@ googletrans
 nltk
 MeaningCloud-python
 wikipedia
+pyTelegramBotAPI
