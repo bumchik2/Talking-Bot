@@ -2,7 +2,6 @@ numpy
 urllib3
 SpeechRecognition
 python-telegram-bot
-subprocess
 gTTS
 telegram
 json
