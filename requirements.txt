@@ -1,0 +1,14 @@
+speech_recognition
+telebot
+subprocess
+gtts
+telegram
+json
+googletrans
+unittest
+nltk
+meaningcloud
+wikipedia
+numpy
+PyAudio
+urlib3
