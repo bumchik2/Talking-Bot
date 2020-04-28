@@ -4,9 +4,7 @@ SpeechRecognition
 python-telegram-bot
 gTTS
 telegram
-json
 googletrans
-unittest
 nltk
 MeaningCloud-python
 wikipedia
