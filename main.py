@@ -18,7 +18,7 @@ def get_message():
 @server.route('/')
 def web_hook():
     BotManager.bot.remove_webhook()
-    url = 'https://mytalkingbot.herokuapp.com/' + config.TOKENp
+    url = 'https://peaceful-shelf-93340.herokuapp.com/' + config.TOKENp
     BotManager.bot.set_webhook(url=url)
     return '!', 200
 
