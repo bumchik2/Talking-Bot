@@ -8,4 +8,3 @@ googletrans
 nltk
 MeaningCloud-python
 wikipedia
-PyAudio
