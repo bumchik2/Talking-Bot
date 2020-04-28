@@ -7,6 +7,7 @@ import json
 import tests
 import sys
 from flask import Flask, request
+import logging
 
 
 from speech_recognizing import recognize_speech
@@ -170,28 +171,26 @@ if __name__ == '__main__':
     tests.test_all()
 
     if "HEROKU" in list(os.environ.keys()):
-        # logger = telebot.logger
-        # telebot.logger.setLevel(logging.INFO)
+        logger = telebot.logger
+        telebot.logger.setLevel(logging.INFO)
 
         server = Flask(__name__)
 
-
         @server.route("/bot", methods=['POST'])
-        def getMessage():
+        def get_message():
             BotManager.bot.process_new_updates([telebot.types.Update.de_json(request.stream.read().decode("utf-8"))])
             return "!", 200
 
-
         @server.route("/")
-        def webhook():
+        def web_hook():
             BotManager.bot.remove_webhook()
             BotManager.bot.set_webhook(
-                url="https://min-gallows.herokuapp.com/bot")  # этот url нужно заменить на url вашего Хероку приложения
+                url="https://dashboard.heroku.com/apps/mytalkingbot")
+            # этот url нужно заменить на url вашего Хероку приложения
             return "?", 200
-
 
         server.run(host="0.0.0.0", port=os.environ.get('PORT', 80))
     else:
-        # если переменной окружения HEROKU нету, значит это запуск с машины разработчика.
-        # Удаляем вебхук на всякий случай, и запускаем с обычным поллингом.
+        # если переменной окружения HEROKU нет, значит это запуск с машины разработчика.
+        # => запускаем с обычным поллингом.
         BotManager.bot.polling(none_stop=True)
