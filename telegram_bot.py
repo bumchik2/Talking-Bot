@@ -41,7 +41,6 @@ Use the following commands to manage chat settings:
     waiting_for_command_reply = False
 
     @staticmethod
-    @debug_function
     def convert_oga_to_wav(downloaded_file, filename_oga, filename_wav):
         with open(filename_oga, 'wb') as new_file:
             new_file.write(downloaded_file)
@@ -51,14 +50,12 @@ Use the following commands to manage chat settings:
             raise Exception("Something went wrong...")
 
     @staticmethod
-    @debug_function
     def get_audio_from_text(text, filename_mp3):
         lang = 'ru' if BotManager.bot_language == 'ru-RU' else BotManager.bot_language
         output = gTTS(text=text, lang=lang, slow=False)
         output.save(filename_mp3)
 
     @staticmethod
-    @debug_function
     def get_reply(user_message):
         smart_answer = smart_reply.get_reply(user_message, language=BotManager.bot_language)
         answer = smart_answer if smart_answer is not None else elisa_reply.get_reply(user_message)
@@ -69,7 +66,6 @@ Use the following commands to manage chat settings:
         return answer
 
     @staticmethod
-    @debug_function
     def reply(chat_id, user_message, voice_enable):
         if user_message == '':
             BotManager.bot.send_message(chat_id, 'Have you actually said something?')
@@ -86,7 +82,6 @@ Use the following commands to manage chat settings:
             BotManager.bot.send_message(chat_id, reply_message)
 
     @staticmethod
-    @debug_function
     def reply_to_command(message):
         if message.text == '/help' or message.text == '/start':
             BotManager.bot.send_message(message.chat.id, BotManager.help_message)
@@ -107,7 +102,6 @@ Use the following commands to manage chat settings:
             BotManager.bot.send_message(chat_id=message.chat.id, text="Unknown command")
 
     @staticmethod
-    @debug_function
     def get_command_reply(message):
         print('OK I am here!')
         BotManager.waiting_for_command_reply = False
@@ -132,7 +126,6 @@ Use the following commands to manage chat settings:
 
     @staticmethod
     @bot.message_handler(content_types=['text'])
-    @debug_function
     def reply_to_text_message(message):
         if BotManager.waiting_for_command_reply:
             BotManager.get_command_reply(message)
@@ -144,7 +137,6 @@ Use the following commands to manage chat settings:
 
     @staticmethod
     @bot.message_handler(content_types=['voice'])
-    @debug_function
     def reply_to_voice(message):
         file_info = BotManager.bot.get_file(message.voice.file_id)
         downloaded_file = BotManager.bot.download_file(file_info.file_path)

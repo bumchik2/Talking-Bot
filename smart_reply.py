@@ -31,7 +31,7 @@ def get_topics(text, language):
             else:
                 print("\nOh no! There was the following error: " + topics_response.getStatusMsg() + "\n")
 
-    except:
+    except ValueError:
         print('Something went wrong when making a meaningCloud request', file=sys.stderr)
 
     finally:
