@@ -15,8 +15,10 @@ def get_topics(text, language):
     language = 'ru' if language == 'ru-RU' else 'en'
 
     try:
-        topics_response = meaningcloud.TopicsResponse(meaningcloud.TopicsRequest(license_key, txt=text, lang=language,
-                                                                                 topicType='e').sendReq())
+        print('OK so far I feel good!')
+        topics_response = meaningcloud.TopicsResponse(meaningcloud.TopicsRequest(license_key, txt=text,
+                                                      lang=language, topicType='e').sendReq())
+        print('I am dead inside...')
 
         if topics_response.isSuccessful():
             entities = topics_response.getEntities()
