@@ -172,22 +172,22 @@ if __name__ == '__main__':
 
     if "HEROKU" in list(os.environ.keys()):
         print('OK, I am actually here', file=sys.stderr)
-        
+
         logger = telebot.logger
         telebot.logger.setLevel(logging.INFO)
 
         server = Flask(__name__)
 
-        @server.route("/bot", methods=['POST'])
-        def get_message():
+        @server.route("/" + config.TOKEN, methods=['POST'])
+        def getMessage():
             BotManager.bot.process_new_updates([telebot.types.Update.de_json(request.stream.read().decode("utf-8"))])
             return "!", 200
 
         @server.route("/")
-        def web_hook():
+        def webhook():
             BotManager.bot.remove_webhook()
             BotManager.bot.set_webhook(
-                url="https://dashboard.heroku.com/apps/mytalkingbot")
+                url="https://pacific-scrubland-93685.herokuapp.com/" + config.TOKEN)
             # этот url нужно заменить на url вашего Хероку приложения
             return "?", 200
 
