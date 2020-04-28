@@ -3,10 +3,12 @@ import meaningcloud
 import config
 import random
 import wikipedia
+from telegram_bot import debug_function
 
 license_key = config.LICENCE_KEY
 
 
+@debug_function
 def get_topics(text, language):
     result = []
 
@@ -31,13 +33,14 @@ def get_topics(text, language):
             else:
                 print("\nOh no! There was the following error: " + topics_response.getStatusMsg() + "\n")
 
-    except ValueError:
-        e = sys.exc_info()[0]
-        print("\nException: " + str(e))
+    except:
+        print('Something went wrong when making a meaningCloud request', file=sys.stderr)
+
     finally:
         return result
 
 
+@debug_function
 def get_topic(text, language):
     topics = get_topics(text, language)
     if not topics:
@@ -57,6 +60,7 @@ successful_reply_starters = (
 )
 
 
+@debug_function
 def get_wiki_answer(topic):
     try:
         wiki_summary = wikipedia.summary(topic, 3)
@@ -76,6 +80,7 @@ def get_wiki_answer(topic):
     return None
 
 
+@debug_function
 def get_reply(text, language):
     topic = get_topic(text, language)
     if topic is None:

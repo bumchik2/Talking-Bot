@@ -1,5 +1,6 @@
 from speech_recognizing import recognize_speech
 import unittest
+import sys
 
 
 class SpeechRecognitionTester(unittest.TestCase):
@@ -28,7 +29,7 @@ def test_all():
     srt = SpeechRecognitionTester()
     srt.recognize_speech_english_test()
     srt.recognize_speech_russian_test()
-    print('All tests passed successfully!')
+    print('All tests passed successfully!', file=sys.stderr)
 
 
 if __name__ == '__main__':
