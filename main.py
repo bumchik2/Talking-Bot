@@ -4,6 +4,9 @@ from flask import Flask, request
 import telebot
 import config
 import os
+import warnings
+
+warnings.filterwarnings("ignore")
 
 server = Flask(__name__)
 
