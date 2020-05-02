@@ -87,7 +87,6 @@ Use the following commands to manage chat settings:
             return
 
         reply_message = BotManager.get_reply(user_message, chat_id)
-        print('Bot: ', reply_message, file=sys.stderr)
 
         if BotManager.id_voice_enabled[chat_id]:
             filename_mp3 = 'reply.mp3'
@@ -136,14 +135,12 @@ Use the following commands to manage chat settings:
         else:
             pass
 
-        print('Bot: ', bot_reply, file=sys.stderr)
         BotManager.bot.send_message(message.chat.id, bot_reply)
 
     @staticmethod
     @bot.message_handler(content_types=['text'])
     def reply_to_text_message(message):
         BotManager.init_chat_if_needed(message.chat.id)
-        print('User id =', message.chat.id, ':', message.text, file=sys.stderr)
 
         if BotManager.id_waiting_for_reply[message.chat.id]:
             BotManager.get_command_reply(message)
