@@ -1,0 +1,12 @@
+numpy
+urllib3
+SpeechRecognition
+python-telegram-bot
+gTTS
+telegram
+googletrans
+nltk
+MeaningCloud-python
+wikipedia
+pyTelegramBotAPI
+flask
